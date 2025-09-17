@@ -20,44 +20,45 @@ export const BokehBackground = () => {
         },
         fpsLimit: 60,
         interactivity: {
+          detect_on: "window",
           events: {
-            onHover: { enable: false },
+            onHover: { enable: true, mode: "twinkle"},
             onClick: { enable: false },
             resize: true
-          }
+          },
         },
         particles: {
           number: {
-            value: 100,
+            value: 20,
             density: { enable: true, area: 800 }
           },
-          color: { value: "#77D1C4" }, // light bokeh color
+          color: { value: "#189A80" },
           shape: { type: "circle" },
           opacity: {
-            value: 0.07,
+            value: 0.05,
             random: { enable: true, minimumValue: 0.01 },
-            anim: { enable: false, speed: 0.5, opacity_min: 0.3, sync: false }
+            anim: { enable: false, speed: 0.2, opacity_min: 0.01, sync: false }
           },
           size: {
-            value: 20,
-            random: { enable: true, minimumValue: 5 },
-            anim: { enable: true, speed: 3, size_min: 5, sync: false }
+            value: 25,
+            random: { enable: true, minimumValue: 1 },
+            anim: { enable: true, speed: 1, size_min: 5, sync: false }
           },
           move: {
             enable: true,
-            speed: 1,
+            speed: 5,
             direction: "up",
             random: true,
             straight: false,
             outModes: { default: "out" }
           },
           shadow: {
-            blur:50,
+            blur:20,
             color: {value: "#A8E1D8"},
             enable: true,
           },
           collisions: {
-            enable: true,
+            enable: false,
             mode: "bounce"
           }
         }
