@@ -2,9 +2,22 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import StaticBackground from "./components/StaticBackground";
 import { SocialIcons } from "./components/SocialIcons";
+import GridLayout from "./components/GridLayout";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function App() {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const [showGrid, setShowGrid] = useState(false);
+
+  useEffect(() => {
+    const handleKeyPress = () => {
+      setShowGrid(true);
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  });
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -22,31 +35,55 @@ export default function App() {
     <div className="relative w-screen h-screen overflow-hidden">
       <StaticBackground />
 
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent z-20" />
-      </div>
+      <AnimatePresence>
+        {!showGrid ? (
+          <motion.div
+            key="landing"
+            className="absolute inset-0 flex flex-col items-center justify-center text-white z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.7 }}
+          >
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent z-20" />
+            </div>
 
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-black to-transparent z-20" />
-      </div>
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-black to-transparent z-20" />
+            </div>
 
-      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-        <div
-          className="flex flex-col items-center text-white transition-transform duration-150 ease-out pointer-events-auto"
-          style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}
-        >
-          <img
-            src="/icons/aclogo.png"
-            alt="Logo"
-            className="w-16 opacity-100 mb-5"
-          />
-          <h1 className="title">DINO.DEV</h1>
-          <SocialIcons />
-          <p className="mt-5 text-lg tracking-widest animate-pulse">
-            press any key
-          </p>
-        </div>
-      </div>
+            <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+              <div
+                className="flex flex-col items-center text-white transition-transform duration-150 ease-out pointer-events-auto"
+                style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}
+              >
+                <img
+                  src="/icons/aclogo.png"
+                  alt="Logo"
+                  className="w-16 opacity-100 mb-5"
+                />
+                <h1 className="title">DINO.DEV</h1>
+                <SocialIcons />
+                <p className="mt-5 text-lg tracking-widest animate-pulse">
+                  press any key
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="grid"
+            className="absolute inset-0 z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <GridLayout />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
