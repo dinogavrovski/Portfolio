@@ -76,3 +76,8 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.grid-item {
+  background-color: #22532e;
+  border: 3px, solid, #0e3117;
+}
