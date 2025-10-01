@@ -4,7 +4,7 @@ import StackIcon from "tech-stack-icons";
 const GridLayout = () => {
   return (
     <>
-      <div className="flex w-screen h-screen">
+      <div className="flex w-full min-h-screen relative z-10">
         <div className="flex justify-center items-start flex-col gap-3 w-1/2 p-[20vh] text-start">
           <h1 className="text-3xl font-bold mb-2">About me</h1>
           <p className="text-lg">
